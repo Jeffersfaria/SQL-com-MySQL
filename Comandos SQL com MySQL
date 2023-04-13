@@ -3,12 +3,12 @@
 //Definindo onde estão as tabelas que desejo trabalhar.
 USE sucos;
 
-//Exclusão
+//Exclusão.
 DROP TABLE tbcliente;
 
 DROP TABLE tbproduto;
 
-//Criação
+//Criação.
 CREATE TABLE tbcliente
 ( CPF VARCHAR (11) ,
 NOME VARCHAR (100) ,
@@ -68,6 +68,7 @@ INSERT INTO tbcliente (CPF,NOME,ENDERECO1,ENDERECO2,BAIRRO,CIDADE,ESTADO,CEP,DAT
 INSERT INTO tbcliente (CPF,NOME,ENDERECO1,ENDERECO2,BAIRRO,CIDADE,ESTADO,CEP,DATA_NASCIMENTO,IDADE,SEXO,LIMITE_CREDITO,VOLUME_COMPRA,PRIMEIRA_COMPRA) VALUES ('5648641702','Paulo César Mattos','Rua Hélio Beltrão','','Tijuca','Rio de Janeiro','RJ','21002020','1991-08-30',26,'M',120000,220000,0);
 
 INSERT INTO tbcliente (CPF,NOME,ENDERECO1,ENDERECO2,BAIRRO,CIDADE,ESTADO,CEP,DATA_NASCIMENTO,IDADE,SEXO,LIMITE_CREDITO,VOLUME_COMPRA,PRIMEIRA_COMPRA) VALUES ('492472718','Eduardo Jorge','R. Volta Grande','','Tijuca','Rio de Janeiro','RJ','22012002','1994-07-19',23,'M',75000,95000,1);
+
 
 INSERT INTO tbproduto (PRODUTO, NOME, EMBALAGEM, TAMANHO, SABOR, PRECO_LISTA) VALUES ('1040107','Light - 350 ml - Melância','Lata','350 ml','Melância',4.555);
 
@@ -141,10 +142,13 @@ INSERT INTO tbproduto (PRODUTO, NOME, EMBALAGEM, TAMANHO, SABOR, PRECO_LISTA) VA
 
 
 
+//Adicionando coluna à tabela de clientes.
+ALTER TABLE tbcliente ADD COLUMN (DATA_NASCIMENTO DATE);
 
 
 
-//Consulta. ("*" significa "all")
+
+//Consulta, ("*" significa "all").
 SELECT * FROM tbproduto;
 
 SELECT * FROM tbcliente;
@@ -220,3 +224,32 @@ SELECT * FROM tbcliente WHERE IDADE >= 18 AND IDADE <= 22 AND SEXO = 'M';
 SELECT * FROM tbcliente WHERE CIDADE = 'Rio de Janeiro' OR BAIRRO = 'Jardins';
 
 SELECT * FROM tbcliente WHERE (IDADE >= 18 AND IDADE <= 22 AND SEXO = 'M') OR (cidade = 'Rio de Janeiro' OR BAIRRO = 'Jardins');
+
+
+
+
+//Criação de tabela pequena.
+CREATE TABLE TABELA_DE_VENDEDORES (
+    MATRICULA varchar(5), 
+    NOME varchar(100), 
+    PERCENTUAL_COMISSAO float
+);
+
+ALTER TABLE TABELA_DE_VENDEDORES ADD PRIMARY KEY (MATRICULA);
+
+//Inserindo poucos dados.
+INSERT INTO TABELA_DE_VENDEDORES
+(MATRICULA, NOME, PERCENTUAL_COMISSAO)
+VALUES
+('00233', 'João Geraldo da Fonseca', 0.10);
+
+//Breve atualização/alteração.
+UPDATE TABELA_DE_VENDEDORES SET NOME = 'José Geraldo da Fonseca Junior'
+WHERE MATRICULA = '00233';
+
+//Consulta precisa.
+SELECT * FROM TABELA_DE_VENDEDORES WHERE NOME = 'José Geraldo da Fonseca Junior';
+
+//Deletando cadastro de vendedor, após demissão.
+DELETE FROM TABELA_DE_VENDEDORES WHERE MATRICULA = '00233';
+
